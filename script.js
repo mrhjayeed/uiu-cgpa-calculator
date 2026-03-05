@@ -201,10 +201,19 @@ function addCourseRow(data = {}) {
         }, 250);
     });
 
-    row.appendChild(creditInput);
-    row.appendChild(gradeSelect);
-    row.appendChild(retakeWrapper);
-    row.appendChild(prevGradeSelect);
+    // Helper: wrap element in a field-group with a mobile label
+    function wrapField(element, label) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'field-group';
+        wrapper.dataset.label = label;
+        wrapper.appendChild(element);
+        return wrapper;
+    }
+
+    row.appendChild(wrapField(creditInput, 'Credits'));
+    row.appendChild(wrapField(gradeSelect, 'Grade'));
+    row.appendChild(wrapField(retakeWrapper, 'Retake'));
+    row.appendChild(wrapField(prevGradeSelect, 'Prev. Grade'));
     row.appendChild(removeBtn);
     coursesList.appendChild(row);
 
@@ -240,8 +249,8 @@ function calculate() {
     let retakeCredits = 0;     // credits from retake courses (already in previous record)
 
     rows.forEach(row => {
-        const creditVal = row.querySelector('.course-credit').value;
-        const gradeVal = row.querySelector('.course-grade').value;
+        const creditVal = row.querySelector('.course-credit')?.value;
+        const gradeVal = row.querySelector('.course-grade')?.value;
         const isRetake = row.querySelector('.course-retake')?.checked || false;
         const prevGradeVal = row.querySelector('.prev-grade-select')?.value || '';
 
@@ -377,8 +386,8 @@ function saveToStorage() {
     const courses = [];
     rows.forEach(row => {
         courses.push({
-            credit: row.querySelector('.course-credit').value,
-            grade: row.querySelector('.course-grade').value,
+            credit: row.querySelector('.course-credit')?.value,
+            grade: row.querySelector('.course-grade')?.value,
             retake: row.querySelector('.course-retake')?.checked || false,
             prevGrade: row.querySelector('.prev-grade-select')?.value || ''
         });

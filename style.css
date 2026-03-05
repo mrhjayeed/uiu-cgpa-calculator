@@ -504,6 +504,11 @@ main {
     margin-bottom: 0.6rem;
 }
 
+/* Field group wrapper — transparent on desktop */
+.field-group {
+    display: contents;
+}
+
 .courses-list-header span {
     font-size: 0.7rem;
     font-weight: 600;
@@ -952,13 +957,15 @@ footer strong {
         display: none;
     }
 
+    /* --- Course row mobile card layout --- */
     .course-row {
         grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-        padding: 0.75rem;
+        gap: 0.6rem;
+        padding: 0.85rem;
         background: rgba(255, 255, 255, 0.6);
         border-radius: var(--radius-sm);
         border: 1px solid rgba(100, 116, 139, 0.12);
+        position: relative;
     }
 
     .course-row+.course-row {
@@ -966,8 +973,33 @@ footer strong {
         margin-top: 0.5rem;
     }
 
+    /* Field groups show labels on mobile */
+    .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .field-group::before {
+        content: attr(data-label);
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    /* Retake field: horizontal layout so label sits beside the toggle */
+    .field-group[data-label="Retake"] {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
     .btn-remove {
         justify-self: end;
+        align-self: start;
+        margin-top: 0.15rem;
     }
 
     .retake-toggle {
