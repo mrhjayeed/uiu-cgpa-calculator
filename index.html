@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="UIU CGPA Calculator — Calculate your GPA and CGPA based on United International University's official grading policy.">
+    <title>UIU CGPA Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="bg-effects">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-group">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <rect x="2" y="2" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2.5" />
+                        <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="currentColor"
+                            font-size="16" font-weight="800">UIU</text>
+                    </svg>
+                </div>
+                <div>
+                    <h1>CGPA Calculator</h1>
+                    <p class="subtitle">United International University</p>
+                </div>
+            </div>
+            <button class="btn-grading-ref" id="toggleGradingTable" aria-label="Toggle grading table">
+                <i data-lucide="info" style="width:18px;height:18px;"></i>
+                <span>Grading Scale</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Grading Table Modal -->
+    <div class="modal-overlay" id="gradingModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>UIU Grading Scale</h2>
+                <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="grading-table">
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Point</th>
+                            <th>Marks (%)</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>4.00</td>
+                            <td>90 – 100</td>
+                            <td>Outstanding</td>
+                        </tr>
+                        <tr>
+                            <td>A-</td>
+                            <td>3.67</td>
+                            <td>86 – 89</td>
+                            <td>Excellent</td>
+                        </tr>
+                        <tr>
+                            <td>B+</td>
+                            <td>3.33</td>
+                            <td>82 – 85</td>
+                            <td>Very Good</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>3.00</td>
+                            <td>78 – 81</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr>
+                            <td>B-</td>
+                            <td>2.67</td>
+                            <td>74 – 77</td>
+                            <td>Above Average</td>
+                        </tr>
+                        <tr>
+                            <td>C+</td>
+                            <td>2.33</td>
+                            <td>70 – 73</td>
+                            <td>Average</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>2.00</td>
+                            <td>66 – 69</td>
+                            <td>Below Average</td>
+                        </tr>
+                        <tr>
+                            <td>C-</td>
+                            <td>1.67</td>
+                            <td>62 – 65</td>
+                            <td>Poor</td>
+                        </tr>
+                        <tr>
+                            <td>D+</td>
+                            <td>1.33</td>
+                            <td>58 – 61</td>
+                            <td>Very Poor</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>1.00</td>
+                            <td>55 – 57</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr class="fail-row">
+                            <td>F</td>
+                            <td>0.00</td>
+                            <td>0 – 54</td>
+                            <td>Fail</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="grading-notes">
+                    <p><strong>Earned Credits:</strong> Only courses with grade "D" or higher count as earned credit
+                        hours.</p>
+                    <p><strong>Degree Requirement:</strong> Minimum CGPA 2.00 for both Undergraduate and Graduate
+                        programs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Previous CGPA Section -->
+        <section class="card previous-cgpa-section">
+            <div class="card-header">
+                <h2>
+                    <i data-lucide="clock" style="width:20px;height:20px;"></i>
+                    Previous Record
+                </h2>
+                <span class="badge">Optional</span>
+            </div>
+            <p class="card-desc">Enter your previous CGPA and completed credits to calculate cumulative CGPA.</p>
+            <div class="prev-inputs">
+                <div class="input-group">
+                    <label for="prevCGPA">Previous CGPA</label>
+                    <input type="number" id="prevCGPA" min="0" max="4" step="0.01" placeholder="e.g. 3.50">
+                </div>
+                <div class="input-group">
+                    <label for="prevCredits">Completed Credits</label>
+                    <input type="number" id="prevCredits" min="0" step="0.75" placeholder="e.g. 90">
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Trimester Courses -->
+        <section class="card courses-section">
+            <div class="card-header">
+                <h2>
+                    <i data-lucide="book-open" style="width:20px;height:20px;"></i>
+                    Current Trimester Courses
+                </h2>
+                <button class="btn-add" id="addCourse" aria-label="Add course">
+                    <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                    Add Course
+                </button>
+            </div>
+            <div class="courses-list-header">
+                <span class="col-credit">Credits</span>
+                <span class="col-grade">Grade</span>
+                <span class="col-retake">Retake</span>
+                <span class="col-prevgrade">Prev. Grade</span>
+                <span class="col-action"></span>
+            </div>
+            <div class="courses-list" id="coursesList">
+                <!-- Course rows injected by JS -->
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="card results-section" id="resultsSection">
+            <div class="card-header">
+                <h2>
+                    <i data-lucide="bar-chart-3" style="width:20px;height:20px;"></i>
+                    Results
+                </h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-card gpa-card">
+                    <span class="result-label">Current GPA</span>
+                    <span class="result-value" id="currentGPA">0.00</span>
+                    <span class="result-tag" id="gpaTag">—</span>
+                </div>
+                <div class="result-card cgpa-card">
+                    <span class="result-label">Cumulative CGPA</span>
+                    <span class="result-value" id="cumulativeCGPA">0.00</span>
+                    <span class="result-tag" id="cgpaTag">—</span>
+                </div>
+                <div class="result-card credits-card">
+                    <span class="result-label">Credits This Trimester</span>
+                    <span class="result-value" id="trimesterCredits">0</span>
+                    <span class="result-sub" id="earnedCredits">0 earned</span>
+                </div>
+                <div class="result-card total-card">
+                    <span class="result-label">Total Earned Credits</span>
+                    <span class="result-value" id="totalCredits">0</span>
+                    <span class="result-sub" id="totalCreditsSub">Including previous</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="actions-bar">
+            <button class="btn btn-reset" id="resetAll">
+                <i data-lucide="rotate-ccw" style="width:16px;height:16px;"></i>
+                Reset All
+            </button>
+            <button class="btn btn-calculate" id="calculateBtn">
+                Calculate
+                <i data-lucide="chevron-right" style="width:16px;height:16px;"></i>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Developed by <strong>M. R. Haque Jayeed</strong></p>
+        <p class="footer-sub">Based on <a href="https://www.uiu.ac.bd/academics/grading-performance-evaluation/"
+                target="_blank" rel="noopener">UIU Grading &amp; Performance Evaluation</a> &middot; <a
+                href="LICENSE" target="_blank" rel="noopener">MIT License</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
