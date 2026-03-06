@@ -17,22 +17,6 @@ const GRADE_MAP = {
     'F': 0.00
 };
 
-const CREDIT_OPTIONS = [0.75, 1, 1.5, 2, 3, 4];
-
-const GRADE_LABELS = {
-    'A': 'Outstanding',
-    'A-': 'Excellent',
-    'B+': 'Very Good',
-    'B': 'Good',
-    'B-': 'Above Average',
-    'C+': 'Average',
-    'C': 'Below Average',
-    'C-': 'Poor',
-    'D+': 'Very Poor',
-    'D': 'Pass',
-    'F': 'Fail'
-};
-
 // ---------- DOM References ----------
 const coursesList = document.getElementById('coursesList');
 const addCourseBtn = document.getElementById('addCourse');
